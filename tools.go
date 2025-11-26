@@ -119,6 +119,58 @@ func (s *mcpServer) registerTools() error {
 		return mcp.NewToolResultText(text), nil
 	})
 
+	goToDefinitionTool := mcp.NewTool("go_to_definition",
+		mcp.WithDescription("Go to the definition of the symbol at the specified position. This uses the LSP textDocument/definition request directly with file position, providing context-aware navigation to the exact definition."),
+		mcp.WithString("filePath",
+			mcp.Required(),
+			mcp.Description("The path to the file containing the symbol"),
+		),
+		mcp.WithNumber("line",
+			mcp.Required(),
+			mcp.Description("The line number where the symbol is located (1-indexed)"),
+		),
+		mcp.WithNumber("column",
+			mcp.Required(),
+			mcp.Description("The column number where the symbol is located (1-indexed)"),
+		),
+	)
+
+	s.mcpServer.AddTool(goToDefinitionTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		// Extract arguments
+		filePath, ok := request.Params.Arguments["filePath"].(string)
+		if !ok {
+			return mcp.NewToolResultError("filePath must be a string"), nil
+		}
+
+		// Handle both float64 and int for line and column due to JSON parsing
+		var line, column int
+		switch v := request.Params.Arguments["line"].(type) {
+		case float64:
+			line = int(v)
+		case int:
+			line = v
+		default:
+			return mcp.NewToolResultError("line must be a number"), nil
+		}
+
+		switch v := request.Params.Arguments["column"].(type) {
+		case float64:
+			column = int(v)
+		case int:
+			column = v
+		default:
+			return mcp.NewToolResultError("column must be a number"), nil
+		}
+
+		coreLogger.Debug("Executing go_to_definition for file: %s line: %d column: %d", filePath, line, column)
+		text, err := tools.GoToDefinition(s.ctx, s.lspClient, filePath, line, column)
+		if err != nil {
+			coreLogger.Error("Failed to go to definition: %v", err)
+			return mcp.NewToolResultError(fmt.Sprintf("failed to go to definition: %v", err)), nil
+		}
+		return mcp.NewToolResultText(text), nil
+	})
+
 	findReferencesTool := mcp.NewTool("references",
 		mcp.WithDescription("Find all usages and references of a symbol throughout the codebase. Returns a list of all files and locations where the symbol appears."),
 		mcp.WithString("symbolName",
@@ -139,6 +191,67 @@ func (s *mcpServer) registerTools() error {
 		if err != nil {
 			coreLogger.Error("Failed to find references: %v", err)
 			return mcp.NewToolResultError(fmt.Sprintf("failed to find references: %v", err)), nil
+		}
+		return mcp.NewToolResultText(text), nil
+	})
+
+	findReferencesAtPositionTool := mcp.NewTool("references_at_position",
+		mcp.WithDescription("Find all usages and references of the symbol at the specified position. This uses the LSP textDocument/references request directly with file position."),
+		mcp.WithString("filePath",
+			mcp.Required(),
+			mcp.Description("The path to the file containing the symbol"),
+		),
+		mcp.WithNumber("line",
+			mcp.Required(),
+			mcp.Description("The line number where the symbol is located (1-indexed)"),
+		),
+		mcp.WithNumber("column",
+			mcp.Required(),
+			mcp.Description("The column number where the symbol is located (1-indexed)"),
+		),
+		mcp.WithBoolean("includeDeclaration",
+			mcp.Description("Whether to include the declaration in the results (default: true)"),
+			mcp.DefaultBool(true),
+		),
+	)
+
+	s.mcpServer.AddTool(findReferencesAtPositionTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		// Extract arguments
+		filePath, ok := request.Params.Arguments["filePath"].(string)
+		if !ok {
+			return mcp.NewToolResultError("filePath must be a string"), nil
+		}
+
+		// Handle both float64 and int for line and column due to JSON parsing
+		var line, column int
+		switch v := request.Params.Arguments["line"].(type) {
+		case float64:
+			line = int(v)
+		case int:
+			line = v
+		default:
+			return mcp.NewToolResultError("line must be a number"), nil
+		}
+
+		switch v := request.Params.Arguments["column"].(type) {
+		case float64:
+			column = int(v)
+		case int:
+			column = v
+		default:
+			return mcp.NewToolResultError("column must be a number"), nil
+		}
+
+		includeDeclaration := true // default value
+		if includeDeclarationArg, ok := request.Params.Arguments["includeDeclaration"].(bool); ok {
+			includeDeclaration = includeDeclarationArg
+		}
+
+		coreLogger.Debug("Executing references_at_position for file: %s line: %d column: %d includeDeclaration: %v", filePath, line, column, includeDeclaration)
+		text, err := tools.FindReferencesAtPosition(s.ctx, s.lspClient, filePath, line, column, includeDeclaration)
+		if err != nil {
+			coreLogger.Error("Failed to find references at position: %v", err)
+			return mcp.NewToolResultError(fmt.Sprintf("failed to find references at position: %v", err)), nil
 		}
 		return mcp.NewToolResultText(text), nil
 	})
