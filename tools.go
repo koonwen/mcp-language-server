@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/isaacphi/mcp-language-server/internal/tools"
+	"github.com/koonwen/mcp-language-server/internal/tools"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

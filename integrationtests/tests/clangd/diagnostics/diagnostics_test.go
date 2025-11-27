@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/isaacphi/mcp-language-server/integrationtests/tests/clangd/internal"
-	"github.com/isaacphi/mcp-language-server/integrationtests/tests/common"
-	"github.com/isaacphi/mcp-language-server/internal/tools"
+	"github.com/koonwen/mcp-language-server/integrationtests/tests/clangd/internal"
+	"github.com/koonwen/mcp-language-server/integrationtests/tests/common"
+	"github.com/koonwen/mcp-language-server/internal/tools"
 )
 
 // TestDiagnostics tests diagnostics functionality with the Clangd language server

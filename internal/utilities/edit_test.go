@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
 )
 
 // mockFileSystem provides mocked file system operations

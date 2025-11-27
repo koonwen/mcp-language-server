@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/isaacphi/mcp-language-server/internal/lsp"
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
-	"github.com/isaacphi/mcp-language-server/internal/utilities"
+	"github.com/koonwen/mcp-language-server/internal/lsp"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/utilities"
 )
 
 // RenameSymbol renames a symbol (variable, function, class, etc.) at the specified position

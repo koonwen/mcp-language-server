@@ -3,8 +3,8 @@ package lsp
 import (
 	"encoding/json"
 
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
-	"github.com/isaacphi/mcp-language-server/internal/utilities"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/utilities"
 )
 
 // FileWatchHandler is called when file watchers are registered by the server

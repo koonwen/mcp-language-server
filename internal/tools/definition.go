@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/isaacphi/mcp-language-server/internal/lsp"
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/lsp"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
 )
 
 // GoToDefinition finds the definition of the symbol at the given file position.

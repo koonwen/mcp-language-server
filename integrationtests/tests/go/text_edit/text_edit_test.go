@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/isaacphi/mcp-language-server/integrationtests/tests/common"
-	"github.com/isaacphi/mcp-language-server/integrationtests/tests/go/internal"
-	"github.com/isaacphi/mcp-language-server/internal/tools"
+	"github.com/koonwen/mcp-language-server/integrationtests/tests/common"
+	"github.com/koonwen/mcp-language-server/integrationtests/tests/go/internal"
+	"github.com/koonwen/mcp-language-server/internal/tools"
 )
 
 // TestApplyTextEdits tests the ApplyTextEdits tool with various edit scenarios

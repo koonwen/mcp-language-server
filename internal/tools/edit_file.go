@@ -8,9 +8,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/isaacphi/mcp-language-server/internal/lsp"
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
-	"github.com/isaacphi/mcp-language-server/internal/utilities"
+	"github.com/koonwen/mcp-language-server/internal/lsp"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/utilities"
 )
 
 type TextEdit struct {

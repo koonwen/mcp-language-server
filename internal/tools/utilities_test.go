@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
 	"github.com/stretchr/testify/assert"
 )
 

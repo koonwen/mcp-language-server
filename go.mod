@@ -1,4 +1,4 @@
-module github.com/isaacphi/mcp-language-server
+module github.com/koonwen/mcp-language-server
 
 go 1.24.0
 

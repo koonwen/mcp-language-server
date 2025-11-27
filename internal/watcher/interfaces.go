@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
 )
 
 // LSPClient defines the minimal interface needed by the watcher

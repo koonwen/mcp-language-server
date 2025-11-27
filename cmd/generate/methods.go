@@ -145,7 +145,7 @@ package lsp
 import (
 	"context"
 
-  "github.com/isaacphi/mcp-language-server/internal/protocol"
+  "github.com/koonwen/mcp-language-server/internal/protocol"
 )
 `)
 

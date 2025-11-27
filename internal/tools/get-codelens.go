@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/isaacphi/mcp-language-server/internal/lsp"
-	"github.com/isaacphi/mcp-language-server/internal/protocol"
+	"github.com/koonwen/mcp-language-server/internal/lsp"
+	"github.com/koonwen/mcp-language-server/internal/protocol"
 )
 
 // GetCodeLens retrieves code lens hints for a given file location
